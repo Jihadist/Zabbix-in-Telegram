@@ -13,7 +13,7 @@ import stat
 import hashlib
 import subprocess
 #import sqlite3
-import urllib3
+import warnings
 from os.path import dirname
 import zbxtg_settings
 
@@ -289,7 +289,7 @@ class ZabbixWeb:
 
     def login(self):
         if not self.verify:
-             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+             warnings.simplefilter('ignore',InsecureRequestWarning)
 
         data_api = {"name": self.username, "password": self.password, "enter": "Sign in"}
         answer = requests.post(self.server + "/", data=data_api, proxies=self.proxies, verify=self.verify,
